@@ -1,20 +1,27 @@
+// App.js
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FormPage from "./FormPage";
-import About from "./About";
-import WaitingScreen from "./WaitingScreen";
+
+import Home from "./Home"; 
+import UploadComponent from './components/UploadComponent';
+import Graph from './Graph';
+
 
 function App() {
   return (
     <Router>
-      <div className="h-screen w-full">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/form" element={<FormPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/waiting" element={<WaitingScreen />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<FormPage />} />
+        <Route path="/home" element={<Home />} />
+      </Routes>
+      <div className="App">
+        <header className="App-header">
+          <h1>Chat Wrapped</h1>
+        </header>
+        <UploadComponent />
+        <Graph />
+
       </div>
     </Router>
   );

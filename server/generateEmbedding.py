@@ -4,8 +4,8 @@ import os
 
 # Import the functions and objects from your two files.
 # Adjust the module names below as needed.
-from server.topicModeling import find_favorite_topic, embedder
-from server.jsonParsing import parse_messages
+from topicModeling import find_favorite_topic, embedder
+from jsonParsing import parse_messages
 
 def parse_timedelta(time_str):
     """
@@ -27,7 +27,6 @@ def parse_timedelta(time_str):
     return total_seconds
 
 def getEmbedding(favorite_label, stats):
-
     # === 1. Favorite Topic Embedding ===
     topic_embedding = embedder.encode(favorite_label)
     
@@ -102,3 +101,9 @@ def getEmbedding(favorite_label, stats):
     combined_vector = np.concatenate([topic_embedding_scaled, stats_vector])
     
     return combined_vector
+
+def reduce_dimensions(embeddings):
+    from sklearn.decomposition import PCA
+    pca = PCA(n_components=3)
+    reduced_embeddings = pca.fit_transform(embeddings)
+    return reduced_embeddings
