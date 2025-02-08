@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Graph from "./Graph";
 import Header from "./components/Header";
-import { ReactP5Wrapper } from "react-p5-wrapper";
-import ShaderSketch from "./ShaderSketch";
+import Modal from "./components/Modal";
+import Tooltip from "./components/Tooltip";
 
 function Home() {
   const [isSideTabOpen, setIsSideTabOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [formData, setFormData] = useState({
     favoritePhrase1: "",
     favoritePhrase2: "",
@@ -26,10 +29,27 @@ function Home() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleMouseEnter = (e) => {
+    setTooltipPosition({ x: e.clientX, y: e.clientY });
+    setIsTooltipVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsTooltipVisible(false);
+  };
+
   return (
     <div className="h-full w-full relative">
       <Header isHome={true} isSideTabOpen={isSideTabOpen} />
-      <Graph className="h-full w-full z-0" />
+      {/* <Graph className="h-full w-full z-10" /> */}
 
       {/* Button to open the side tab */}
       <button
@@ -47,11 +67,6 @@ function Home() {
           isSideTabOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        {/* Shader Background */}
-        <div className="absolute inset-0 z-10">
-          {/* <ReactP5Wrapper sketch={ShaderSketch} /> */}
-        </div>
-
         {/* Side Tab Content */}
         <div className="relative z-20 h-full w-full text-gray-100">
           <h1 className="text-2xl font-bold mb-4">Jeffrey Wang</h1>
@@ -110,11 +125,30 @@ function Home() {
           </div>
 
           {/* Submit Button */}
-          <button className="w-full bg-gray-200 text-black font-bold p-2 rounded mt-4">
+          <button
+            onClick={handleModalOpen}
+            className="w-full bg-gray-200 text-black font-bold p-2 rounded mt-4"
+          >
             Check it out
           </button>
         </div>
       </div>
+
+      {/* Tooltip */}
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-red-500 rounded-full z-50"
+      ></div>
+
+      <Tooltip
+        isVisible={isTooltipVisible}
+        position={tooltipPosition}
+        onCheckItOut={handleModalOpen}
+      />
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={handleModalClose} />
     </div>
   );
 }
