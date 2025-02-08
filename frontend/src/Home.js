@@ -20,8 +20,16 @@ function Home() {
     ],
   });
 
-  const toggleSideTab = () => {
-    setIsSideTabOpen(!isSideTabOpen);
+  const handleMouseEnterLeft = () => {
+    setTimeout(() => {
+      setIsSideTabOpen(true);
+    }, 300);
+  };
+
+  const handleClickOutside = (e) => {
+    if (isSideTabOpen && e.clientX > window.innerWidth / 6) {
+      setIsSideTabOpen(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -47,23 +55,27 @@ function Home() {
   };
 
   return (
-    <div className="h-full w-full relative">
+    <div className="h-full w-full relative" onClick={handleClickOutside}>
       <Header isHome={true} isSideTabOpen={isSideTabOpen} />
       {/* <Graph className="h-full w-full z-10" /> */}
 
-      {/* Button to open the side tab */}
-      <button
-        onClick={toggleSideTab}
-        className={`fixed top-5 left-5 z-50 bg-gray-200 text-black p-2 rounded-full transition-transform duration-500 ${
-          isSideTabOpen ? "translate-x-1/3" : ""
-        }`}
-      >
-        {isSideTabOpen ? "←" : "→"}
-      </button>
+      {/* Left 1/6 part of the screen */}
+      <div
+        className="fixed top-0 left-0 h-full"
+        style={{ width: "16.6667vw" }}
+        onMouseEnter={handleMouseEnterLeft}
+      ></div>
+
+      {/* Box with ">" icon */}
+      {!isSideTabOpen && (
+        <div className="fixed top-1/2 left-0 transform -translate-y-1/2 w-8 h-8 bg-gray-800 text-white flex items-center justify-center cursor-pointer z-50">
+          &gt;
+        </div>
+      )}
 
       {/* Animated Side Tab */}
       <div
-        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-40 transition-transform duration-500 ${
+        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-40 transition-transform duration-300 ${
           isSideTabOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
