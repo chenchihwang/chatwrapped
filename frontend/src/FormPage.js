@@ -1,12 +1,13 @@
 // FormPage.js
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./components/Header";
 import { ReactP5Wrapper } from "react-p5-wrapper";
 import ShaderSketch from "./ShaderSketch";
 
 function FormPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate(); // <-- Step 1: import and use the hook
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
@@ -32,13 +33,9 @@ function FormPage() {
 
       if (response.ok) {
         alert(result.message); // e.g. "File uploaded successfully!"
-        // Show the returned user_data if needed
-        document.getElementById("userData").innerText = JSON.stringify(
-          result.user_data,
-          null,
-          2
-        );
         setIsSubmitted(true);
+        // Step 2: Navigate to "/graph" after success
+        navigate("/home"); 
       } else {
         console.log("Upload failed:", result.message);
       }
@@ -58,28 +55,14 @@ function FormPage() {
 
       {/* Form Container - Positioned Above Shader */}
       <div className="flex justify-center items-center pt-10 relative z-10">
-        {isSubmitted ? (
-          <div className="w-10/12 sm:w-1/2 mt-20 mb-10 bg-black bg-opacity-20 backdrop-blur-lg p-5 pb-2 rounded text-gray-200">
-            <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
-              You're in.
-            </h1>
-            <p className="text-center">
-              Go to{" "}
-              <Link
-                className="font-bold text-center text-gray-200 opacity-85"
-                to="/"
-              >
-                tartanspace
-              </Link>
-            </p>
-          </div>
-        ) : (
+        {/* You could remove isSubmitted logic entirely if you want
+            but here's a minimal version that doesn't do much. */}
+        {!isSubmitted ? (
           <div className="w-10/12 sm:w-1/2 mt-10 mb-10 bg-black bg-opacity-75 backdrop-blur-lg p-5 rounded text-gray-200 relative z-10">
             <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
               Chat <span className="font-bold">Wrapper</span>
             </h1>
 
-            {/* Single form for username + file upload */}
             <form
               id="uploadForm"
               onSubmit={handleFileUpload}
@@ -126,8 +109,24 @@ function FormPage() {
               </button>
             </form>
 
-            {/* Display server response */}
             <div id="userData" className="text-white mt-4"></div>
+          </div>
+        ) : (
+          // If you still want something to display briefly after submission,
+          // you could keep this or remove entirely since you'll navigate away anyway.
+          <div className="w-10/12 sm:w-1/2 mt-20 mb-10 bg-black bg-opacity-20 backdrop-blur-lg p-5 pb-2 rounded text-gray-200">
+            <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
+              You're in.
+            </h1>
+            <p className="text-center">
+              Go to{" "}
+              <Link
+                className="font-bold text-center text-gray-200 opacity-85"
+                to="/"
+              >
+                tartanspace
+              </Link>
+            </p>
           </div>
         )}
       </div>
