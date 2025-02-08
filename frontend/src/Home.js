@@ -9,6 +9,7 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [isTooltipClicked, setIsTooltipClicked] = useState(false);
   const [formData, setFormData] = useState({
     favoritePhrase1: "",
     favoritePhrase2: "",
@@ -27,7 +28,7 @@ function Home() {
   };
 
   const handleClickOutside = (e) => {
-    if (isSideTabOpen && e.clientX > window.innerWidth / 6) {
+    if (!isModalOpen && isSideTabOpen && !isTooltipClicked && e.clientX > window.innerWidth / 3) {
       setIsSideTabOpen(false);
     }
   };
@@ -46,18 +47,28 @@ function Home() {
   };
 
   const handleMouseEnter = (e) => {
-    setTooltipPosition({ x: e.clientX, y: e.clientY });
-    setIsTooltipVisible(true);
+    if (!isTooltipClicked) {
+      setTooltipPosition({ x: e.clientX, y: e.clientY });
+      setIsTooltipVisible(true);
+    }
   };
 
   const handleMouseLeave = () => {
-    setIsTooltipVisible(false);
+    if (!isTooltipClicked) {
+      setIsTooltipVisible(false);
+    }
+  };
+
+  const handleTooltipClick = (e) => {
+    setTooltipPosition({ x: e.clientX, y: e.clientY });
+    setIsTooltipClicked(!isTooltipClicked);
+    setIsTooltipVisible(!isTooltipVisible);
   };
 
   return (
     <div className="h-full w-full relative" onClick={handleClickOutside}>
       <Header isHome={true} isSideTabOpen={isSideTabOpen} />
-      {/* <Graph className="h-full w-full z-10" /> */}
+      {/* <Graph className="h-full w-full z-0" /> */}
 
       {/* Left 1/6 part of the screen */}
       <div
@@ -75,7 +86,7 @@ function Home() {
 
       {/* Animated Side Tab */}
       <div
-        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-40 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-50 transition-transform duration-300 ${
           isSideTabOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -150,7 +161,8 @@ function Home() {
       <div
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-red-500 rounded-full z-50"
+        onClick={handleTooltipClick}
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-red-500 rounded-full z-50 cursor-pointer"
       ></div>
 
       <Tooltip
