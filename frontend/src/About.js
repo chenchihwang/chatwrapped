@@ -3,10 +3,15 @@ import Header from "./components/Header";
 
 const About = () => {
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full relative">
       <Header isHome={false} />
 
-      <div className="flex flex-col items-center pt-10">
+      <video id="bg-video" className="absolute top-0 left-0 w-full h-full object-cover" autoPlay loop muted>
+        <source src="/2_1.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="flex flex-col items-center pt-10 relative z-10">
         <div className="w-10/12 sm:w-1/2 mt-10 mb-10 bg-black bg-opacity-75 backdrop-blur-lg p-5 rounded text-white">
           <p>
             <span className="font-bold text-gray-200">tartanspace</span> is a
