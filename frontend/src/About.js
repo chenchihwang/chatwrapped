@@ -3,10 +3,10 @@ import Header from "./components/Header";
 
 const About = () => {
   return (
-    <div className="h-screen w-full relative">
+    <div className="relative min-h-screen w-full">
       <Header isHome={false} />
 
-      <video id="bg-video" className="absolute top-0 left-0 w-full h-full object-cover" autoPlay loop muted>
+      <video id="bg-video" className="fixed top-0 left-0 w-full h-full object-cover -z-10" autoPlay loop muted>
         <source src="/video_background/2_1.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>

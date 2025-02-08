@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./components/Header";
+import { ReactP5Wrapper } from "react-p5-wrapper";
+import ShaderSketch from "./ShaderSketch";
 
 function FormPage() {
   const [formData, setFormData] = useState({
@@ -40,19 +42,15 @@ function FormPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(
-      "http://localhost:8080/form-submission",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    const response = await fetch("http://localhost:8080/form-submission", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
     if (response.ok) {
-      // Clear the form if the submission is successful
       setFormData({
         firstName: "",
         lastName: "",
@@ -80,7 +78,13 @@ function FormPage() {
     <div className="h-screen w-full relative">
       <Header isHome={false} />
 
-      <div className="flex justify-center items-center pt-10">
+      {/* Shader Background - Positioned Behind Content */}
+      <div className="fixed top-0 left-0 w-full h-full -z-10">
+        <ReactP5Wrapper sketch={ShaderSketch} />
+      </div>
+
+      {/* Form Container - Positioned Above Shader */}
+      <div className="flex justify-center items-center pt-10 relative z-10">
         {isSubmitted ? (
           <div className="w-10/12 sm:w-1/2 mt-20 mb-10 bg-black bg-opacity-20 backdrop-blur-lg p-5 pb-2 rounded text-gray-200">
             <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
@@ -97,59 +101,47 @@ function FormPage() {
             </p>
           </div>
         ) : (
-          <div className="w-10/12 sm:w-1/2 mt-10 mb-10 bg-black bg-opacity-75 backdrop-blur-lg p-5 rounded text-gray-200">
+          <div className="w-10/12 sm:w-1/2 mt-10 mb-10 bg-black bg-opacity-75 backdrop-blur-lg p-5 rounded text-gray-200 relative z-10">
             <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
               join <span className="font-bold">tartanspace</span>
             </h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div class="w-full mb-6 md:mb-0 ">
-                <label
-                  className="block lowercase tracking-wide text-white text-sm mb-2"
-                  for="grid-first-name"
-                >
+              <div className="w-full mb-6 md:mb-0">
+                <label className="block lowercase tracking-wide text-white text-sm mb-2">
                   First Name
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-900 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
+                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-900 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
                   type="text"
-                  id="firstName"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
                   required
-                ></input>
+                />
               </div>
 
-              <div class="w-full mb-6 md:mb-0">
-                <label
-                  class="block lowercase tracking-wide text-white text-sm mb-2"
-                  for="grid-last-name"
-                >
+              <div className="w-full mb-6 md:mb-0">
+                <label className="block lowercase tracking-wide text-white text-sm mb-2">
                   Last Name
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
+                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
                   type="text"
-                  id="lastName"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
                   required
-                ></input>
+                />
               </div>
 
-              <div class="w-full mb-6 md:mb">
-                <label
-                  className="block lowercase tracking-wide text-white text-sm mb-2"
-                  htmlFor="email"
-                >
+              <div className="w-full mb-6 md:mb">
+                <label className="block lowercase tracking-wide text-white text-sm mb-2">
                   Email@andrew.cmu.edu
                 </label>
                 <input
-                  class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
+                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -160,164 +152,18 @@ function FormPage() {
               </div>
 
               <div className="w-full mb-6 md:mb-0">
-                <label
-                  className="block lowercase tracking-wide text-white text-sm mb-2"
-                  htmlFor="graduationYear"
-                >
+                <label className="block lowercase tracking-wide text-white text-sm mb-2">
                   Graduation Year
                 </label>
                 <input
                   className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="texti"
-                  id="graduationYear"
+                  type="text"
                   name="graduationYear"
                   value={formData.graduationYear}
                   onChange={handleChange}
                   required
                 />
               </div>
-
-              <div class="w-full mb-6 md:mb">
-                <label
-                  className="block lowercase tracking-wide text-white text-sm mb-2"
-                  htmlFor="contact"
-                >
-                  contact info (e.g. IG, Discord, etc.)
-                </label>
-                <input
-                  class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="text"
-                  id="contact"
-                  name="contact"
-                  value={formData.contact}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <p className="text-center lowercase text-gray-100 font-semibold text-base">
-                answer the questions below
-              </p>
-              {questions.map((question, index) => (
-                <div>
-                  <label
-                    class="block lowercase tracking-wide text-white text-sm mb-2"
-                    htmlFor={`question${index}`}
-                  >
-                    {question}
-                  </label>
-                  <textarea
-                    class="block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                    type="text"
-                    rows="2"
-                    id={`question${index}`}
-                    name={`question${index}`}
-                    value={formData[`question${index}`]}
-                    onChange={handleChange}
-                  />
-                </div>
-              ))}
-
-              <div className="flex items-center justify-between">
-                <label
-                  className="block lowercase tracking-wide text-white text-sm"
-                  htmlFor="single"
-                >
-                  are you single?
-                </label>
-                <div className="flex items-center space-x-4">
-                  <label className="flex items-center text-white">
-                    <input
-                      type="radio"
-                      name="single"
-                      value="yes"
-                      className="form-radio"
-                      checked={formData.single === "yes"}
-                      onChange={() =>
-                        setFormData({
-                          ...formData,
-                          single: "yes",
-                        })
-                      }
-                    />
-                    <span className="ml-2">Yes</span>
-                  </label>
-                  <label className="flex items-center text-white">
-                    <input
-                      type="radio"
-                      name="single"
-                      value="no"
-                      className="form-radio"
-                      checked={formData.single === "no"}
-                      onChange={() =>
-                        setFormData({
-                          ...formData,
-                          single: "no",
-                        })
-                      }
-                    />
-                    <span className="ml-2">No</span>
-                  </label>
-                </div>
-              </div>
-
-              {formData.single === "yes" && (
-                <>
-                  <p className="lowercase text-gray-100 font-semibold text-base">
-                    fill out the boxes below if you want potential matches to be
-                    generated for you
-                  </p>
-                  <div class="w-full mb-6 md:mb">
-                    <label
-                      className="block lowercase tracking-wide text-white text-sm mb-2"
-                      htmlFor="gender"
-                    >
-                      gender
-                    </label>
-                    <input
-                      class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                      type="text"
-                      id="gender"
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div class="w-full mb-6 md:mb">
-                    <label
-                      className="block lowercase tracking-wide text-white text-sm mb-2"
-                      htmlFor="orientation"
-                    >
-                      sexual orientation
-                    </label>
-                    <input
-                      class="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                      type="text"
-                      id="orientation"
-                      name="orientation"
-                      value={formData.orientation}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      class="block lowercase tracking-wide text-white text-sm mb-2"
-                      htmlFor="profile"
-                    >
-                      anything you want potential matches to know about you
-                    </label>
-                    <textarea
-                      class="block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                      type="text"
-                      rows="2"
-                      id="profile"
-                      name="profile"
-                      value={formData.profile}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </>
-              )}
 
               <button
                 type="submit"
