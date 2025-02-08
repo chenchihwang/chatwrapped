@@ -60,15 +60,16 @@ function Home() {
   };
 
   const handleTooltipClick = (e) => {
-    setTooltipPosition({ x: e.clientX, y: e.clientY });
+
     setIsTooltipClicked(!isTooltipClicked);
-    setIsTooltipVisible(!isTooltipVisible);
+    setIsTooltipVisible(isTooltipVisible);
   };
 
   return (
     <div className="h-full w-full relative" onClick={handleClickOutside}>
+      <Graph className="h-full w-full -z-20" />
       <Header isHome={true} isSideTabOpen={isSideTabOpen} />
-      {/* <Graph className="h-full w-full z-0" /> */}
+  
 
       {/* Left 1/6 part of the screen */}
       <div
@@ -86,12 +87,12 @@ function Home() {
 
       {/* Animated Side Tab */}
       <div
-        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-50 transition-transform duration-300 ${
+        className={`fixed top-0 left-0 h-full w-1/3 bg-black bg-opacity-75 backdrop-blur-lg p-5 z-60 transition-transform duration-300 ${
           isSideTabOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Side Tab Content */}
-        <div className="relative z-20 h-full w-full text-gray-100">
+        <div className="relative z-20 h-full w-full text-gray-100 ">
           <h1 className="text-2xl font-bold mb-4">Jeffrey Wang</h1>
           <h2 className="text-lg text-gray-300 mb-2">#12345 | Hide-Tide</h2>
 

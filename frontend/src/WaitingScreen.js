@@ -1,12 +1,12 @@
 import React from "react";
 import { ReactP5Wrapper } from "react-p5-wrapper";
-import { sketch } from "./ShaderSketch";
+// import { ShaderSketch} from "./ShaderSketch";
 
 function WaitingScreen() {
   return (
     <div className="h-screen w-full relative">
       {/* Shader Background */}
-      <ReactP5Wrapper sketch={sketch} />
+      {/* <ReactP5Wrapper sketch={ShaderSketch} /> */}
 
       {/* Centered Text */}
       <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 text-white">
