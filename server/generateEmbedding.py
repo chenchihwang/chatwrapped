@@ -4,8 +4,8 @@ import os
 
 # Import the functions and objects from your two files.
 # Adjust the module names below as needed.
-from server.topicModeling import find_favorite_topic, embedder
-from server.jsonParsing import parse_messages
+from topicModeling import find_favorite_topic, embedder
+from jsonParsing import parse_messages
 
 def parse_timedelta(time_str):
     """
