@@ -3,3 +3,5 @@ __pycache__
 .env
 .txt
 node_modules
+
+server/chat_history_large.json
