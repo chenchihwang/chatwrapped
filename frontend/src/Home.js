@@ -28,7 +28,7 @@ function Home() {
   };
 
   const handleClickOutside = (e) => {
-    if (!isModalOpen && isSideTabOpen && !isTooltipClicked && e.clientX > window.innerWidth / 3) {
+    if (!isModalOpen && isSideTabOpen && e.clientX > window.innerWidth / 3) {
       setIsSideTabOpen(false);
     }
   };

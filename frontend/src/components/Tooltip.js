@@ -5,9 +5,9 @@ const Tooltip = ({ isVisible, position, onCheckItOut }) => {
 
   return (
     <div
-      className="absolute bg-black bg-opacity-75 text-white p-4 rounded shadow-lg"
+      className="absolute bg-black bg-opacity-75 text-white p-4 rounded shadow-lg z-50"
       style={{ top: position.y, left: position.x }}
-    >
+    > 
       <h1 className="text-2xl font-bold mb-4">Jeffrey Wang</h1>
       <h2 className="text-lg text-gray-300 mb-2">#12345 | Hide-Tide</h2>
       <button
