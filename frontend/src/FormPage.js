@@ -41,7 +41,7 @@ function FormPage() {
     e.preventDefault();
 
     const response = await fetch(
-      "https://thankyouthankyouthankyou.site/form-submission",
+      "http://localhost:8080/form-submission",
       {
         method: "POST",
         headers: {

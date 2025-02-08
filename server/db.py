@@ -6,7 +6,7 @@ load_dotenv()
 db_username = os.getenv("MONGODB_USERNAME")
 db_password = os.getenv("MONGODB_PASSWORD")
 
-client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@chatwrapped.2o77p.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@chatwrapped.2o77p.mongodb.net/?retryWrites=true&w=majority&appName=chatwrapped", tls=True, tlsAllowInvalidCertificates=True)
 
 db = client.get_database('chatwrapped-v1')
 collection = db['prod']

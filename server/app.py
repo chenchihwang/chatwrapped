@@ -1,12 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from werkzeug.utils import secure_filename
+import os
+
 from embed_and_reduce import get_embedding, reduce_dimensions
 from db import save_document, get_all_submissions
 
 app = Flask(__name__)
 allowed_origins = ["https://tartanspace.xyz", "https://www.tartanspace.xyz", "http://localhost:3000"]
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
+
+UPLOAD_FOLDER = 'uploads/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def hello_world():
@@ -24,7 +30,7 @@ def process_submission():
     orientation = request.json.get("orientation")
     profile = request.json.get("profile")
 
-    answer1 = request.json.get("question1")
+    answer1 = request.json.get("username")
     answer2 = request.json.get("question2")
     answer3 = request.json.get("question3")
     answer4 = request.json.get("question4")
@@ -33,6 +39,19 @@ def process_submission():
     answers = [answer1, answer2, answer3, answer4, answer5]
 
     embedding = get_embedding(answers)
+
+    # Handle file upload
+    if 'file' not in request.files:
+        return jsonify(status="Error", message="No file part in the request"), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify(status="Error", message="No selected file"), 400
+
+    if file:
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
 
     data_dict = {
         "first_name": first_name,
@@ -45,6 +64,7 @@ def process_submission():
         "profile": profile,
         "embedding": embedding.tolist(),
         "single": single,
+        "file_path": os.path.join(app.config['UPLOAD_FOLDER'], filename)
     }
 
     save_document(data_dict)

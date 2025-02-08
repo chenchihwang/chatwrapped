@@ -123,7 +123,7 @@ const Graph = () => {
 
     let pointDict;
     // load points
-    fetch("https://thankyouthankyouthankyou.site/get-points")
+    fetch("http://localhost:8080/get-points")
       .then((response) => response.json())
       .then((data) => {
         // Process the response data
