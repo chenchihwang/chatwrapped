@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-from generateEmbedding import get_embedding, reduce_dimensions
+from generateEmbedding import getEmbedding
 from db import save_document, get_all_submissions
 
 app = Flask(__name__)
