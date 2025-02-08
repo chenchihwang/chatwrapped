@@ -9,8 +9,13 @@ function App() {
     <Router>
       <div className="h-screen w-full">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/form" element={<FormPage />} />
+          {/* Make FormPage load at "/" /}
+          <Route path="/" element={<FormPage />} />
+
+          {/ Move Home to "/home" (or remove if you don't need it) /}
+          <Route path="/home" element={<Home />} />
+
+          {/ Keep About as is */}
           <Route path="/about" element={<About />} />
         </Routes>
       </div>
