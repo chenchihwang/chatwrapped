@@ -15,7 +15,8 @@ def process_chat_history(username, chat_history_filename):
 
     embedding = getEmbedding(favorite_label, stats)
 
-    insert_into_mongodb(data=stats, username=username, embedding=embedding)
+    inserted_id = insert_into_mongodb(data=stats, username=username, embedding=embedding, keyword=favorite_keywords, label=favorite_label)
+    return inserted_id
 
 if __name__ == '__main__':
     uploads_dir = os.path.join(os.path.dirname(__file__), '..', 'uploads')

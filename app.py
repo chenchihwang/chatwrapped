@@ -49,9 +49,7 @@ def upload_file():
         with open(os.path.join(app.config['UPLOAD_FOLDER'], 'username.txt'), 'w') as f:
             f.write(username)
         
-        process_chat_history(username, filepath)
-        
-        # Fetch the updated data from MongoDB
+        # Check if data already exists in MongoDB
         MONGODB_USERNAME = os.environ.get("MONGODB_USERNAME", "chenchih")
         MONGODB_PASSWORD = os.environ.get("MONGODB_PASSWORD", "MqmftQ8wn0C4mKA1")
         connection_string = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@chatwrapped.2o77p.mongodb.net/?retryWrites=true&w=majority&appName=chatwrapped"
@@ -60,7 +58,17 @@ def upload_file():
         db = client["my_database"]
         collection = db["messages"]
 
-        user_data = collection.find_one({"username": username})
+        existing_data = collection.find_one({"username": username})
+        if existing_data:
+            # Remove the MongoDB ObjectId from the response
+            existing_data.pop('_id', None)
+            return jsonify({'message': 'Data already exists for the given username', 'user_data': existing_data})
+
+        # Process chat history and get the inserted ID
+        inserted_id = process_chat_history(username, filepath)
+        
+        # Fetch the updated data from MongoDB using the username
+        user_data = collection.find_one({"_id": inserted_id})  # Fetch user data from MongoDB using the inserted ID
         if not user_data:
             return jsonify({'message': 'No data found for the given username'}), 404
 
