@@ -16,20 +16,7 @@ def hello_world():
 def process_submission():
     first_name = request.json.get("firstName")
     last_name = request.json.get("lastName")
-    email = request.json.get("email")
-    contact = request.json.get("contact")
-    graduation_year = request.json.get("graduationYear")
-    single = request.json.get("single")
-    gender = request.json.get("gender")
-    orientation = request.json.get("orientation")
-    profile = request.json.get("profile")
-
-    answer1 = request.json.get("username")
-    answer2 = request.json.get("question2")
-    answer3 = request.json.get("question3")
-    answer4 = request.json.get("question4")
-    answer5 = request.json.get("question5")
-
+    
     answers = [answer1, answer2, answer3, answer4, answer5]
 
     embedding = get_embedding(answers)

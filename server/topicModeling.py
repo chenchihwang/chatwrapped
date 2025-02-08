@@ -21,6 +21,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 
 # --- Setup: Download required NLTK data ---
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('vader_lexicon')
 

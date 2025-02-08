@@ -1,4 +1,4 @@
-from insertDB import get_all_submissions
+from server.saveDoc import get_all_submissions
 import numpy as np
 
 def get_names():
