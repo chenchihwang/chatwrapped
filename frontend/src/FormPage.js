@@ -119,81 +119,13 @@ function FormPage() {
         ) : (
           <div className="w-10/12 sm:w-1/2 mt-10 mb-10 bg-black bg-opacity-75 backdrop-blur-lg p-5 rounded text-gray-200 relative z-10">
             <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4">
-              join <span className="font-bold">tartanspace</span>
+              Chat <span className="font-bold">Wrapper</span>
             </h1>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="w-full mb-6 md:mb-0">
-                <label className="block lowercase tracking-wide text-white text-sm mb-2">
-                  First Name
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-900 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              
 
-              <div className="w-full mb-6 md:mb-0">
-                <label className="block lowercase tracking-wide text-white text-sm mb-2">
-                  Last Name
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="w-full mb-6 md:mb">
-                <label className="block lowercase tracking-wide text-white text-sm mb-2">
-                  Email@andrew.cmu.edu
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  pattern="[a-zA-Z0-9._%+-]+@([a-zA-Z0-9-]+\.)?cmu\.edu"
-                  title="Please enter an email ending with 'cmu.edu'"
-                  required
-                />
-              </div>
-
-              <div className="w-full mb-6 md:mb-0">
-                <label className="block lowercase tracking-wide text-white text-sm mb-2">
-                  Graduation Year
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-800 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="text"
-                  name="graduationYear"
-                  value={formData.graduationYear}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gray-200 text-black font-bold p-2 rounded"
-              >
-                Submit
-              </button>
-            </form>
-
-            <h1 className="block text-center tracking-wide text-gray-200 text-3xl font-semibold mb-4 mt-10">
-              Upload a File
-            </h1>
-            <form id="uploadForm" onSubmit={handleFileUpload} className="space-y-4" enctype="multipart/form-data">
-              <div className="w-full mb-6 md:mb-0">
+            <div className="w-full mb-6 md:mb-0">
                 <label className="block lowercase tracking-wide text-white text-sm mb-2">
                   Username
                 </label>
@@ -205,27 +137,33 @@ function FormPage() {
                   required
                 />
               </div>
+              
+            <form id="uploadForm" onSubmit={handleFileUpload} className="space-y-4" enctype="multipart/form-data">
+           
 
-              <div className="w-full mb-6 md:mb-0">
-                <label className="block lowercase tracking-wide text-white text-sm mb-2">
-                  File
-                </label>
-                <input
-                  className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-900 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
-                  type="file"
-                  id="fileInput"
-                  name="file"
-                  required
-                />
-              </div>
+           <div className="w-full mb-6 md:mb-0">
+             <label className="block lowercase tracking-wide text-white text-sm mb-2">
+               File
+             </label>
+             <input
+               className="appearance-none block w-full bg-gray-900 bg-opacity-50 text-white text-sm border border-gray-900 rounded py-3 px-2 mb-3 leading-tight focus:outline-none focus:border-gray-200"
+               type="file"
+               id="fileInput"
+               name="file"
+               required
+             />
+           </div>
 
-              <button
-                type="submit"
-                className="w-full bg-gray-200 text-black font-bold p-2 rounded"
-              >
-                Upload
-              </button>
+           <button
+             type="submit"
+             className="w-full bg-gray-200 text-black font-bold p-2 rounded"
+           >
+             Upload
+           </button>
+         </form>
             </form>
+
+          
             <div id="response" className="text-white mt-4"></div>
             <div id="userData" className="text-white mt-4"></div>
           </div>
