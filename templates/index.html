@@ -34,6 +34,14 @@
             alert(result.message);
             if (result.user_data) {
                 document.getElementById('userData').innerText = JSON.stringify(result.user_data, null, 2);
+                // Send the user data to the content.js file
+                fetch('/api/update_content', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(result.user_data)
+                });
             }
         };
     </script>

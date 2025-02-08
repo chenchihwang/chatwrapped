@@ -6,3 +6,4 @@ keybert
 openai
 python-dotenv
 pymongo
+flask-cors
