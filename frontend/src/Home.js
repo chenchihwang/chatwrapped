@@ -6,7 +6,7 @@ import Tooltip from "./components/Tooltip";
 import SideTab from "./components/SideTab";
 
 function Home() {
-  const [isSideTabOpen, setIsSideTabOpen] = useState(true);
+  const [isSideTabOpen, setIsSideTabOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
@@ -68,7 +68,9 @@ function Home() {
 
   return (
     <div className="h-full w-full relative" onClick={handleClickOutside}>
-      <Graph className="h-full w-full -z-40" />
+      <Graph className="h-full w-full -z-40"
+              handleMouseEnterLeft={handleMouseEnterLeft}
+              handleClickOutside={handleClickOutside} />
       <SideTab
         className= "z-50"
         isSideTabOpen={isSideTabOpen}

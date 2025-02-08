@@ -10,7 +10,7 @@ import {
 } from "three/addons/renderers/CSS2DRenderer.js";
 import * as TWEEN from "@tweenjs/tween.js";
 
-const Graph = () => {
+const Graph = ({ handleMouseEnterLeft, handleClickOutside }) => {
   const canvasRef = useRef(null);
 
   function createLabel(text) {
@@ -238,8 +238,10 @@ const Graph = () => {
 
   return (
     <div
+      onMouseEnter={handleMouseEnterLeft}
+      onClick={handleClickOutside}
       ref={canvasRef}
-      style={{ position: "absolute", top: 0, left: 0, zIndex: 40 }}
+      style={{ position: "absolute", top: 0, left: 0, zIndex: 10 }}
     ></div>
   );
 };
