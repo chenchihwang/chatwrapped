@@ -12,8 +12,12 @@ from sklearn.metrics import silhouette_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from keybert import KeyBERT
 from openai import OpenAI  # Using the new client format
+from dotenv import load_dotenv
+import os
 
-api_key = ""
+load_dotenv()
+
+api_key = os.getenv("OPENAI_API_KEY")
 
 # --- Setup: Download required NLTK data ---
 nltk.download('punkt')
