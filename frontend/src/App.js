@@ -2,7 +2,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import FormPage from "./FormPage";
-import Home from "./Home"; // <-- import your Graph component
+import Home from "./Home"; 
 
 function App() {
   return (

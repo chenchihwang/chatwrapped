@@ -26,7 +26,7 @@ def parse_timedelta(time_str):
         total_seconds = int(h) * 3600 + int(m) * 60 + float(s)
     return total_seconds
 
-def get_embedding(favorite_label, stats):
+def getEmbedding(favorite_label, stats):
     # === 1. Favorite Topic Embedding ===
     topic_embedding = embedder.encode(favorite_label)
     

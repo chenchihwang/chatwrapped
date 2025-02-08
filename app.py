@@ -16,7 +16,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Enable CORS
-allowed_origins = ["https://tartanspace.xyz", "https://www.tartanspace.xyz", "http://localhost:3000"]
+allowed_origins = ["https://tartanspace.xyz", "https://www.tartanspace.xyz", "http://127.0.0.1:3000"]
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 # Clean the uploads folder

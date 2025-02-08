@@ -37,13 +37,16 @@ def extract_message_info(data):
         active_date = None
     result["most_active_day_count"] = (active_date, count)
 
+    print (result)
+
     return result
 
-def insert_into_mongodb(data, username, embedding, connection_string=None, database_name="my_database", collection_name="messages", keyword=None, label=None):
+def insert_into_mongodb(data, username, embedding, keywords, label, connection_string=None, database_name="my_database", collection_name="messages"):
     if connection_string is None:
         MONGODB_USERNAME = os.environ.get("MONGODB_USERNAME", "chenchih")
         MONGODB_PASSWORD = os.environ.get("MONGODB_PASSWORD", "MqmftQ8wn0C4mKA1")
         connection_string = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@chatwrapped.2o77p.mongodb.net/?retryWrites=true&w=majority&appName=chatwrapped"
+
 
     extracted = extract_message_info(data)
     emoji_count, emoji_image_url = extracted.pop("most_used_emoji_count")
@@ -59,12 +62,10 @@ def insert_into_mongodb(data, username, embedding, connection_string=None, datab
     extracted["longest_period"] = str(extracted["longest_period"])
     extracted["username"] = username
     extracted["embedding"] = embedding.tolist()
-    extracted["favorite_keyword"] = keyword
-    extracted["favorite_label"] = label
-    extracted["database_name"] = database_name
+    extracted["topic"] = label
+    extracted["keywords"] = keywords
     client = MongoClient(connection_string)
     db = client[database_name]
     collection = db[collection_name]
 
     result = collection.insert_one(extracted)
-    return result.inserted_id
