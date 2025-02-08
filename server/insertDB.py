@@ -37,8 +37,6 @@ def extract_message_info(data):
         active_date = None
     result["most_active_day_count"] = (active_date, count)
 
-    print (result)
-
     return result
 
 def insert_into_mongodb(data, username, embedding, connection_string=None, database_name="my_database", collection_name="messages"):
@@ -65,26 +63,5 @@ def insert_into_mongodb(data, username, embedding, connection_string=None, datab
     client = MongoClient(connection_string)
     db = client[database_name]
     collection = db[collection_name]
-
-    print(
-        "\n"
-    )
-    print(
-        "\n"
-    )
-
-    print(
-        "\n"
-    )
-    print(extracted)
-    print(
-        "\n"
-    )
-    print(
-        "\n"
-    )
-    print(
-        "\n"
-    )
 
     result = collection.insert_one(extracted)
