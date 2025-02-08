@@ -5,7 +5,7 @@ from embed_and_reduce import get_embedding, reduce_dimensions
 from db import save_document, get_all_submissions
 
 app = Flask(__name__)
-allowed_origins = ["https://tartanspace.xyz", "https://www.tartanspace.xyz"]
+allowed_origins = ["https://tartanspace.xyz", "https://www.tartanspace.xyz", "http://localhost:3000"]
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 @app.route('/')

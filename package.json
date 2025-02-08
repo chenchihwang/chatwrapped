@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^4.0.4"
+  },
+  "name": "chatwrapped",
+  "version": "1.0.0",
+  "description": "Video demo link: https://www.loom.com/share/220fcfb1780f4181bd6473fd3e0983e4?sid=f9a66af9-9004-4f24-8d6e-e277f6d15295",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenchihwang/chatwrapped.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenchihwang/chatwrapped/issues"
+  },
+  "homepage": "https://github.com/chenchihwang/chatwrapped#readme",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "python-shell": "^5.0.0"
+  }
+}

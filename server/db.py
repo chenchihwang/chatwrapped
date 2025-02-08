@@ -6,9 +6,9 @@ load_dotenv()
 db_username = os.getenv("MONGODB_USERNAME")
 db_password = os.getenv("MONGODB_PASSWORD")
 
-client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@cluster0.iwabec8.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient(f"mongodb+srv://{db_username}:{db_password}@chatwrapped.2o77p.mongodb.net/?retryWrites=true&w=majority")
 
-db = client.get_database('tartanspace-v1')
+db = client.get_database('chatwrapped-v1')
 collection = db['prod']
 
 def save_document(user_data: dict):
